@@ -41,9 +41,9 @@
 透過每位消費者的線上購買資料訓練模型，準確推薦消費者可能想購買的商品。
 
 ### API 說明
-#### module_2_api.py
-1. `module_2_api.py`會於初始化時，載入`config.ini`參數與`module_2.py`推薦系統
-2. `module_2.py`會於初始化時，載入`edge_model`模型，並連線至資料庫
+#### module_api.py
+1. `module_api.py`會於初始化時，載入`config.ini`參數與`module.py`推薦系統
+2. `module.py`會於初始化時，載入`edge_model`模型，並連線至資料庫
 3. I :  
    item : str，所在櫃位，格式同TenantPk欄位後6碼，不可為空值，舉例 : '140011'  
    mem_id : str，結帳者，格式同MemId欄位，舉例 : 'D49D1119B2668540'，若為非會員，請輸入'not_mem'，空值請回傳空字串' '  
