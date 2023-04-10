@@ -36,9 +36,9 @@
 
 若要進行任何參數調整，請至`config.ini`中改寫參數。
 
-### 情境修改  
+### 情境說明
 
-不准再改! (經3/28確認，模組一先不導入，故暫緩開發。推薦以櫃位為單位)
+透過每位消費者的線上購買資料訓練模型，準確推薦消費者可能想購買的商品。
 
 ### API 說明
 #### module_2_api.py
@@ -54,3 +54,6 @@
 cd ~/aipos/service
 python module_2_api.py
 ```
+
+### 資料來源
+https://www.kaggle.com/datasets/mashlyn/online-retail-ii-uci
