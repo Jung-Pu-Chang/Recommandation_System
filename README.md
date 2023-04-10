@@ -1,6 +1,10 @@
 # Recommandation-System
 
-> 本專案內容為推薦系統模型訓練、部署相關程式碼以及執行方式
+> 本專案內容為推薦系統模型訓練、部署相關程式碼以及執行方式  
+
+> 首先藉由FP-growth進行關聯分析，並以lift指標定義連結  
+> 接著使用 HinSAGE 建模(link prediction)  
+> 最後新增熱門推薦，來解決新產品無資料的狀況(cold-start)
 
 ## Environment
 `python3.8.13`
@@ -19,16 +23,19 @@
 ├── config
 │   └── config.ini (路徑 & 模型參數)
 ├── data
-│   └── online_retail_II.csv (raw_data)
+│   └── online_retail_II.csv (raw_data，為防止侵權，請另外至下方網址下載)
 ├── models
 │   └── edge_model  
 ├── src
 │   └── training.py
 ├── service
-│   ├── module.py 
-│   ├── module_api.py
+│   ├── module.py 
+│   ├── module_api.py
 └── └── api_test.py 
 ```
+
+### 資料來源
+https://www.kaggle.com/datasets/mashlyn/online-retail-ii-uci
 
 ## Usage
 
@@ -43,17 +50,16 @@
 ### API 說明
 #### module_api.py
 1. `module_api.py`會於初始化時，載入`config.ini`參數與`module.py`推薦系統
-2. `module.py`會於初始化時，載入`edge_model`模型，並連線至資料庫
+2. `module.py`會於初始化時，載入`edge_model`模型，並匯入`node_df.csv`、`edge_df.csv`
 3. I :  
-   item : str，所在櫃位，格式同TenantPk欄位後6碼，不可為空值，舉例 : '140011'  
-   mem_id : str，結帳者，格式同MemId欄位，舉例 : 'D49D1119B2668540'，若為非會員，請輸入'not_mem'，空值請回傳空字串' '  
+   item : str，購買商品，空值請回傳空字串，舉例 : '22726'  
 4. O :  
-   dic : dict，推薦內容包含3個跨櫃櫃位推薦(items)，皆不可為空值  
-   舉例 : {'items': ['360004', '130464', '151000']}  
+   dic : dict，推薦內容包含3個商品推薦(StockCode)，皆不可為空值  
+   舉例 : {'StockCode': ["22494","21417","16254"]}  
+
 ```bash
-cd ~/aipos/service
-python module_2_api.py
+cd ~/Recommandation-System/service
+python module_api.py
 ```
 
-### 資料來源
-https://www.kaggle.com/datasets/mashlyn/online-retail-ii-uci
+
