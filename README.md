@@ -1,4 +1,4 @@
-# Recommandation-System
+# Recommandation_System
 
 > 本專案內容為推薦系統模型訓練、部署相關程式碼以及執行方式  
 
@@ -58,7 +58,7 @@ https://www.kaggle.com/datasets/mashlyn/online-retail-ii-uci
    舉例 : {'StockCode': ["22494","21417","16254"]}  
 
 ```bash
-cd ~/Recommandation-System/service
+cd ~/Recommandation_System/service
 python module_api.py
 ```
 
