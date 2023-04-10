@@ -1,6 +1,10 @@
 # Recommandation-System
 
-> 本專案內容為推薦系統模型訓練(演算法 : HinSAGE)、部署相關程式碼以及執行方式
+> 本專案內容為推薦系統模型訓練、部署相關程式碼以及執行方式  
+
+> 首先藉由FP-growth進行關聯分析，並以lift指標定義連結  
+> 接著使用 HinSAGE 建模(link prediction)  
+> 最後新增熱門推薦，來解決新產品無資料的狀況(cold-start)
 
 ## Environment
 `python3.8.13`
