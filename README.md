@@ -23,11 +23,23 @@
 ├── config
 │   ├── config.ini (連線、支付別等參數)
 │   └── 支付別.csv (定期手動更新支付別文件，資訊部於2025已解決 va_ref_paymethod表的重複問題，未來可直接用中台資料，不必手動更新)
-├── data
-│   └── online_retail_II.csv (raw_data，為防止侵權，請另外至下方網址下載)
-├── models
-│   └── edge_model  
+├── docs
+│   ├── 行銷小幫手_技術文件 (整體架構以及待開發與擴充功能)
+│   └── 行銷小幫手_使用手冊 (使用說明書)
+├── service
+│   ├── app.py (Streamlit 前端) 
+│   ├── module.py (呼叫SQL、極少部分資料整理)
+│   ├── utils.py (共用函式)
+│   └── log 
 ├── src
+│   ├── sql
+│   │   ├── module.py (呼叫SQL、極少部分資料整理)
+│   │   ├── module.py (呼叫SQL、極少部分資料整理)
+│   │   ├── module.py (呼叫SQL、極少部分資料整理)
+│   │   ├── module.py (呼叫SQL、極少部分資料整理)
+│   │   ├── module.py (呼叫SQL、極少部分資料整理)
+│   │   └── module.py (呼叫SQL、極少部分資料整理)
+│   ├── module.py (呼叫SQL、極少部分資料整理)
 │   └── training.py
 ├── service
 │   ├── module.py 
