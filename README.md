@@ -1,14 +1,14 @@
-# 行銷小幫手
+# Recommandation_System
 
-> 本專案內容包含行銷小幫手程式碼以及相關文件  
+> 本專案內容為推薦系統模型訓練、部署相關程式碼以及執行方式  
 
-> [行銷小幫手](http://192.168.71.25:8501/)   
-> 部署位置 : VM = 192.168.71.25，CONTAINER ID = 629cfa8e2dc9  
-> 開發工具 : python + PostgreSQL + docker container  
-> 使用者透過網址下查詢條件後，於[GreenPulm](http://192.168.71.27/)進行資料整理與分析，python 僅為 API，傳遞使用者條件與回傳 PostgreSQL 查詢結果
+> 首先藉由FP-growth進行關聯分析，並以lift指標定義連結  
+> 接著使用 HinSAGE 建模(link prediction)  
+> 最後新增熱門推薦，來解決新產品無資料的狀況(cold-start)
 
 ## Environment
 `python3.8.13`
+
 
 ## Installation
 
@@ -21,35 +21,43 @@
 .
 ├── README.md
 ├── config
-│   ├── config.ini (連線、支付別等參數)
-│   └── 支付別.csv (定期手動更新支付別文件，資訊部於2025已解決 va_ref_paymethod表的重複問題，未來可直接用中台資料，不必手動更新)
-├── docs
-│   ├── 行銷小幫手_技術文件 (整體架構以及待開發與擴充功能)
-│   └── 行銷小幫手_使用手冊 (使用說明書)
-├── service
-│   ├── app.py (Streamlit 前端) 
-│   ├── module.py (呼叫SQL、極少部分資料整理)
-│   ├── utils.py (共用函式)
-│   └── log 
+│   └── config.ini (路徑 & 模型參數)
+├── data
+│   └── online_retail_II.csv (raw_data，為防止侵權，請另外至下方網址下載)
+├── models
+│   └── edge_model  
 ├── src
-│   ├── sql
-│   │   ├── spendband_money.sql (整體 spendband 查詢)
-│   │   ├── spendband_item.sql (商品 spendband 查詢)
-│   │   ├── confidence.sql (合購/加購 碰撞率 查詢)
-│   │   ├── total_payment.sql (各支付別 查詢)
-│   │   ├── bank_payment.sql (各銀行支付別 查詢)
-│   │   └── DM_validation.sql (DM 成效 查詢)
-│   ├── gui_test.py (app.py 測試)
-│   └── test_module.py (module.py 測試)
-├── docker-compose.yml 
-├── Dockerfile_Streamlit
-└── requirements.txt (部署相關套件)
+│   └── training.py
+├── service
+│   ├── module.py 
+│   ├── module_api.py
+└── └── api_test.py 
 ```
 
-### 小幫手更新
-> 透過 MobaXterm 進入 192.168.71.25    
-> 進入 /root/dev/PX_AnalyticsHub/  
-> 將地端檔案直接複製貼上並取代  
-> CI / CD 會自動搬至 629cfa8e2dc9 CONTAINER  
+### 資料來源
+https://www.kaggle.com/datasets/mashlyn/online-retail-ii-uci
 
+## Usage
 
+### 調整參數
+
+若要進行任何參數調整，請至`config.ini`中改寫參數。
+
+### 情境說明
+
+透過每位消費者的線上購買資料訓練模型，準確推薦消費者可能想購買的商品。
+
+### API 說明
+#### module_api.py
+1. `module_api.py`會於初始化時，載入`config.ini`參數與`module.py`推薦系統
+2. `module.py`會於初始化時，載入`edge_model`模型，並匯入`node_df.csv`、`edge_df.csv`
+3. I :  
+   item : str，購買商品，空值請回傳空字串，舉例 : '22726'  
+4. O :  
+   dic : dict，推薦內容包含3個商品推薦(StockCode)，皆不可為空值  
+   舉例 : {'StockCode': ["22494","21417","16254"]}  
+
+```bash
+cd ~/Recommandation_System/service
+python module_api.py
+```
