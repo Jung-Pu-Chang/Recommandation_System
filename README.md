@@ -33,46 +33,23 @@
 │   └── log 
 ├── src
 │   ├── sql
-│   │   ├── module.py (呼叫SQL、極少部分資料整理)
-│   │   ├── module.py (呼叫SQL、極少部分資料整理)
-│   │   ├── module.py (呼叫SQL、極少部分資料整理)
-│   │   ├── module.py (呼叫SQL、極少部分資料整理)
-│   │   ├── module.py (呼叫SQL、極少部分資料整理)
-│   │   └── module.py (呼叫SQL、極少部分資料整理)
-│   ├── module.py (呼叫SQL、極少部分資料整理)
-│   └── training.py
-├── service
-│   ├── module.py 
-│   ├── module_api.py
-└── └── api_test.py 
+│   │   ├── spendband_money.sql (整體 spendband 查詢)
+│   │   ├── spendband_item.sql (商品 spendband 查詢)
+│   │   ├── confidence.sql (合購/加購 碰撞率 查詢)
+│   │   ├── total_payment.sql (各支付別 查詢)
+│   │   ├── bank_payment.sql (各銀行支付別 查詢)
+│   │   └── DM_validation.sql (DM 成效 查詢)
+│   ├── gui_test.py (app.py 測試)
+│   └── test_module.py (module.py 測試)
+├── docker-compose.yml 
+├── Dockerfile_Streamlit
+└── requirements.txt (部署相關套件)
 ```
 
-### 資料來源
-https://www.kaggle.com/datasets/mashlyn/online-retail-ii-uci
-
-## Usage
-
-### 調整參數
-
-若要進行任何參數調整，請至`config.ini`中改寫參數。
-
-### 情境說明
-
-透過每位消費者的線上購買資料訓練模型，準確推薦消費者可能想購買的商品。
-
-### API 說明
-#### module_api.py
-1. `module_api.py`會於初始化時，載入`config.ini`參數與`module.py`推薦系統
-2. `module.py`會於初始化時，載入`edge_model`模型，並匯入`node_df.csv`、`edge_df.csv`
-3. I :  
-   item : str，購買商品，空值請回傳空字串，舉例 : '22726'  
-4. O :  
-   dic : dict，推薦內容包含3個商品推薦(StockCode)，皆不可為空值  
-   舉例 : {'StockCode': ["22494","21417","16254"]}  
-
-```bash
-cd ~/Recommandation_System/service
-python module_api.py
-```
+### 小幫手更新
+> 透過 MobaXterm 進入 192.168.71.25    
+> 進入 /root/dev/PX_AnalyticsHub/  
+> 將地端檔案直接複製貼上並取代  
+> CI / CD 會自動搬至 629cfa8e2dc9 CONTAINER  
 
 
