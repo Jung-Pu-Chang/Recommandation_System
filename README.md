@@ -1,14 +1,14 @@
-# Recommandation_System
+# 行銷小幫手
 
-> 本專案內容為推薦系統模型訓練、部署相關程式碼以及執行方式  
+> 本專案內容包含行銷小幫手程式碼以及相關文件  
 
-> 首先藉由FP-growth進行關聯分析，並以lift指標定義連結  
-> 接著使用 HinSAGE 建模(link prediction)  
-> 最後新增熱門推薦，來解決新產品無資料的狀況(cold-start)
+> [行銷小幫手](http://192.168.71.25:8501/)   
+> 部署位置 : VM = 192.168.71.25，CONTAINER ID = 629cfa8e2dc9  
+> 開發工具 : python + PostgreSQL + docker container  
+> 使用者透過網址下查詢條件後，於[GreenPulm](http://192.168.71.27/)進行資料整理與分析，python 僅為 API，傳遞使用者條件與回傳 PostgreSQL 查詢結果
 
 ## Environment
 `python3.8.13`
-
 
 ## Installation
 
@@ -21,7 +21,8 @@
 .
 ├── README.md
 ├── config
-│   └── config.ini (路徑 & 模型參數)
+│   ├── config.ini (連線、支付別等參數)
+│   └── 支付別.csv (定期手動更新支付別文件，資訊部於2025已解決 va_ref_paymethod表的重複問題，未來可直接用中台資料，不必手動更新)
 ├── data
 │   └── online_retail_II.csv (raw_data，為防止侵權，請另外至下方網址下載)
 ├── models
